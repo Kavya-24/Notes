@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Notes Application</string>
+    <string name="title">Title</string>
+    <string name="Note">Note</string>
+    <string name="save">Save</string>
+    <string name="reset">Reset</string>
+    <string name="_1234">1234</string>
+    <string name="hello_kavya">Hello Kavya</string>
+    <string name="lorem">is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+
+</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="save_to_favorites">Save to favorites</string>
+
+
+    <!--    Share format-->
+    <string name="share_format"><b>%s</b>\n%s </string>
+
+
+</resources>
