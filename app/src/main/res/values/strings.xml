@@ -17,6 +17,7 @@
 
     <!--    Share format-->
     <string name="share_format"><b>%s</b>\n%s </string>
+    <string name="noteitup">NoteItUp</string>
 
 
 </resources>
