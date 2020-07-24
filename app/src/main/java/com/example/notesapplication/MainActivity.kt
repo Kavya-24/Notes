@@ -81,5 +81,9 @@ class MainActivity : AppCompatActivity(), onNoteClick {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 
 }
