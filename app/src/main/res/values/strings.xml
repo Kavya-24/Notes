@@ -30,6 +30,8 @@
     <string name="me">Me</string>
     <string name="change_email">Change email</string>
     <string name="delete_account">Delete account</string>
+    <string name="resend_email_verification">Resend Email verification</string>
+    <string name="forgot_password">Forgot password</string>
 
 
 </resources>

@@ -14,7 +14,6 @@ import com.example.notesapplication.Adapters.NotesAdapter
 import com.example.notesapplication.Adapters.onNoteClick
 import com.example.notesapplication.Models.Notes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import io.realm.Realm
 import io.realm.RealmResults
@@ -106,7 +105,9 @@ class MainActivity : AppCompatActivity(), onNoteClick {
 
         when (item.itemId) {
             R.id.menu_logout -> logout()
-            R.id.menu_changePassword -> changePassword()
+            //  R.id.menu_changePassword -> changePassword()
+            R.id.menu_del_account -> deleteAccount()
+            R.id.menu_change_email -> changeEmail()
 
 
             else ->
@@ -115,20 +116,71 @@ class MainActivity : AppCompatActivity(), onNoteClick {
         return true
     }
 
-    private fun changePassword() {
-        //Reauthenticate the user
-        reAuthenticate()
+    private fun changeEmail() {
+
     }
 
-    private fun reAuthenticate() {
+    private fun deleteAccount() {
         val user = auth.currentUser!!
 
-        val credential = EmailAuthProvider
-            .getCredential("user@example.com", "password1234")
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
+                }
+            }
 
-        user.reauthenticate(credential)
-            .addOnCompleteListener { Log.d(TAG, "User re-authenticated.") }
     }
+
+//    private fun changePassword() {
+//        //Reauthenticate the user
+//        reAuthenticate()
+//    }
+
+//    private fun reAuthenticate() {
+//
+//        //May or may not be available
+//        val user = auth.currentUser
+//
+//        if (user != null) {
+//            val credential = EmailAuthProvider
+//                .getCredential(
+//                    user.email!!,
+//                    "12345678" //Current password Field from the Change Password Dialog)
+//                )
+//
+//
+//            user.reauthenticate(credential)
+//                .addOnCompleteListener {
+//                    if (it.isSuccessful) {
+//                        Log.d(TAG, "User re-authenticated.")
+//                        Toast.makeText(this, "Authentication successful", Toast.LENGTH_SHORT).show()
+//                        setNewPassword(user)
+//                    } else {
+//
+//                        Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
+//                    }
+//
+//
+//                }
+//        }
+//    }
+
+//
+//    private fun setNewPassword(user: FirebaseUser) {
+//
+//        val newPassword = "New_Password"
+//
+//        user.updatePassword(newPassword)
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    Log.d(TAG, "User password updated.")
+//                    //Show Toast and signOut the account
+//                }
+//            }
+//
+//
+//    }
 
     private fun logout() {
         FirebaseAuth.getInstance().signOut()

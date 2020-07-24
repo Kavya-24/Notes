@@ -1,12 +1,15 @@
 package com.example.notesapplication
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.notesapplication.databinding.ActivitySignInBinding
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -16,6 +19,7 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var binding: ActivitySignInBinding
     val TAG = SignInActivity::class.java.simpleName
+    lateinit var builder: AlertDialog.Builder
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,6 +37,68 @@ class SignInActivity : AppCompatActivity() {
             Log.e(TAG, "In Login account SignInButton")
             login()
         }
+
+        binding.apply {
+
+            tvResendEmailVerification.setOnClickListener {
+                resendEmailVerification()
+            }
+
+            tvForgotPassword.setOnClickListener {
+                resetPassword()
+            }
+
+        }
+
+    }
+
+    private fun resetPassword() {
+        builder = AlertDialog.Builder(this)
+        builder.apply {
+            title = "Forgot Password"
+
+            val v = layoutInflater.inflate(R.layout.forgota_dialog, null)
+            val x = v.findViewById<TextInputEditText>(R.id.et_fp)
+            val un = v.findViewById<TextInputEditText>(R.id.et_fp).text.toString()
+            Log.e(TAG, un + x.toString() + " \n" + x.text.toString())
+            setView(v)
+
+            setPositiveButton(
+                "Reset"
+            ) { _: DialogInterface, _: Int ->
+                forgotPassword(un)
+            }
+            setNegativeButton("Cancel") { _, _ ->
+            }
+            setCancelable(true)
+            create()
+            show()
+        }
+
+    }
+
+    private fun forgotPassword(un: String) {
+        //Validate and enter the email str
+
+        Log.e("Un", un)
+        //Use UN
+
+        val e = "Kavya24goyal@gmail.com"
+        auth.sendPasswordResetEmail(e)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Email sent", Toast.LENGTH_SHORT).show()
+                    builder.setOnDismissListener { }
+                } else {
+
+                    Log.e(TAG, "Failed")
+                }
+            }
+
+    }
+
+    private fun resendEmailVerification() {
+
 
     }
 
