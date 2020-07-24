@@ -2,6 +2,9 @@ package com.example.notesapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +14,8 @@ import com.example.notesapplication.Adapters.NotesAdapter
 import com.example.notesapplication.Adapters.onNoteClick
 import com.example.notesapplication.Models.Notes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import io.realm.Realm
 import io.realm.RealmResults
 
@@ -26,19 +30,20 @@ class MainActivity : AppCompatActivity(), onNoteClick {
     private lateinit var notesList: ArrayList<Notes>
     private lateinit var realm: Realm
     private lateinit var adapter: NotesAdapter
+    private lateinit var auth: FirebaseAuth
 
+    val TAG = MainActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FirebaseApp.initializeApp(this)
 
         //Init
         rv = findViewById(R.id.rv_notes)
         fab = findViewById(R.id.fab_addNote)
         notesList = ArrayList<Notes>()
         realm = Realm.getDefaultInstance()
-
+        auth = FirebaseAuth.getInstance()
 
         fab.setOnClickListener {
             val i = Intent(this, AddNote::class.java)
@@ -85,5 +90,57 @@ class MainActivity : AppCompatActivity(), onNoteClick {
         super.onBackPressed()
         finish()
     }
+
+    //Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+
+        menuInflater.inflate(R.menu.top_menu, menu)
+
+        return true
+
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.menu_logout -> logout()
+            R.id.menu_changePassword -> changePassword()
+
+
+            else ->
+                return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    private fun changePassword() {
+        //Reauthenticate the user
+        reAuthenticate()
+    }
+
+    private fun reAuthenticate() {
+        val user = auth.currentUser!!
+
+        val credential = EmailAuthProvider
+            .getCredential("user@example.com", "password1234")
+
+        user.reauthenticate(credential)
+            .addOnCompleteListener { Log.d(TAG, "User re-authenticated.") }
+    }
+
+    private fun logout() {
+        FirebaseAuth.getInstance().signOut()
+        goToLoginActity()
+        finishAffinity()
+    }
+
+    private fun goToLoginActity() {
+        val i = Intent(this, SignInActivity::class.java)
+        startActivity(i)
+
+    }
+
 
 }
