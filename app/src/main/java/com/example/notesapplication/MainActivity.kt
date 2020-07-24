@@ -11,6 +11,7 @@ import com.example.notesapplication.Adapters.NotesAdapter
 import com.example.notesapplication.Adapters.onNoteClick
 import com.example.notesapplication.Models.Notes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.FirebaseApp
 import io.realm.Realm
 import io.realm.RealmResults
 
@@ -26,10 +27,11 @@ class MainActivity : AppCompatActivity(), onNoteClick {
     private lateinit var realm: Realm
     private lateinit var adapter: NotesAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        FirebaseApp.initializeApp(this)
 
         //Init
         rv = findViewById(R.id.rv_notes)
@@ -78,4 +80,6 @@ class MainActivity : AppCompatActivity(), onNoteClick {
         startActivity(i)
 
     }
+
+
 }
