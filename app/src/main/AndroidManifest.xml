@@ -14,28 +14,22 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".SignUpActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".SplasActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
-        <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SignInActivity" />
         <activity android:name=".NoteView" />
         <activity
             android:name=".AddNote"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

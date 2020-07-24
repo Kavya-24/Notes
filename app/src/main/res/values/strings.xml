@@ -25,6 +25,13 @@
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="logout">Logout</string>
+    <string name="change_password">Change Password</string>
+    <string name="me">Me</string>
+    <string name="change_email">Change email</string>
+    <string name="delete_account">Delete account</string>
+    <string name="resend_email_verification">Resend Email verification</string>
+    <string name="forgot_password">Forgot password</string>
 
 
 </resources>

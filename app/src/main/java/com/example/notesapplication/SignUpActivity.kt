@@ -68,7 +68,7 @@ class SignUpActivity : AppCompatActivity() {
                     updateUI(null)
                 }
 
-                // ...
+
             }
 
 
@@ -76,6 +76,8 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
 
+        //Send UID
+        Log.e(TAG, "USerId" + user?.uid.toString())
         Toast.makeText(this, "SignUp successful", Toast.LENGTH_SHORT).show()
         goToLoginActivity()
     }
